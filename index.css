@@ -72,6 +72,15 @@ body {
   transform: translateY(-1px);
 }
 
+/* Make search more prominent on first impression */
+.search-box input {
+  font-size: 16px;
+  padding: 14px 16px;
+}
+.search-box button {
+  padding: 12px 18px;
+}
+
 .weather-card {
   margin-top: 20px;
   background: linear-gradient(180deg,#ffffff,#fbfdff);
@@ -90,6 +99,22 @@ body {
   justify-content: center;
   color: white;
 }
+
+.hero.empty { min-height: 220px; }
+
+.hero-empty { display: none; align-items: center; gap: 20px; }
+.hero.empty .hero-empty { display: flex; }
+.hero.empty .hero-content { display: none; }
+
+.hero-empty .hero-illustration { flex: 0 0 auto; }
+.hero-empty-text { text-align: left; color: rgba(255,255,255,0.95); }
+.hero-empty-title { font-size: 26px; font-weight: 800; color: white; }
+.hero-empty-sub { margin-top: 6px; font-size: 14px; opacity: 0.95; }
+
+/* Make the illustration pop on light themes */
+.theme-clear .hero-empty-title { color: #052642; }
+.theme-clouds .hero-empty-title { color: #052642; }
+
 
 .hero .hero-content {
   display: flex;

@@ -1,4 +1,5 @@
-const apiKey ="6eb0fb65471e2f74dc06a4cbd8f49c7b";
+import 'dotenv/config';
+const apiKey = process.env.apiKey;
 
 const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("cityInput");
@@ -111,6 +112,8 @@ function fetchWeather(city) {
         if (heroTemp) heroTemp.textContent = tempVal !== null ? `${Math.round(tempVal)}°C` : '';
         if (heroCond) heroCond.textContent = data.weather && data.weather[0] ? data.weather[0].description : '';
         heroEl.classList.remove('hidden');
+        // remove empty state when populated
+        heroEl.classList.remove('empty');
       }
     })
     .catch((err) => {
@@ -118,6 +121,16 @@ function fetchWeather(city) {
       console.error('Weather fetch error:', err);
     });
 }
+
+// when fetch fails or user input is invalid, restore the empty hero look
+function restoreEmptyHero() {
+  const heroEl = document.getElementById('hero');
+  if (!heroEl) return;
+  heroEl.className = 'hero empty';
+}
+
+// restore empty on fetch errors globally
+window.addEventListener('error', () => restoreEmptyHero());
 
 function fetchForecast(city) {
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;

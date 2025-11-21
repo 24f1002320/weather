@@ -18,8 +18,40 @@
       <button id="searchBtn">Search</button>
     </div>
 
-    <div id="hero" class="hero hidden">
-      <div class="hero-content">
+    <div id="hero" class="hero empty">
+      <!-- Empty initial state (decorative) -->
+      <div class="hero-empty">
+        <svg class="hero-illustration" width="220" height="140" viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#ffd86b" />
+              <stop offset="1" stop-color="#ffb36b" />
+            </linearGradient>
+            <linearGradient id="g2" x1="0" x2="1">
+              <stop offset="0" stop-color="#cfe9ff" />
+              <stop offset="1" stop-color="#ffffff" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="40" r="22" fill="url(#g1)" />
+          <g opacity="0.95">
+            <path d="M70 60c10 0 18 8 18 18s-8 18-18 18H32c-10 0-18-8-18-18s8-18 18-18c1 0 2 0 3 .2C40 56 54 60 70 60z" fill="url(#g2)" />
+          </g>
+          <g fill="#9fc9ff" opacity="0.9">
+            <ellipse cx="160" cy="30" rx="28" ry="14" />
+            <ellipse cx="180" cy="42" rx="18" ry="10" />
+          </g>
+          <g fill="#77b6ff" opacity="0.9">
+            <circle cx="160" cy="30" r="6" />
+          </g>
+        </svg>
+
+        <div class="hero-empty-text">
+          <div class="hero-empty-title">Check the weather</div>
+          <div class="hero-empty-sub">Search any city to see current conditions and a 5-day forecast.</div>
+        </div>
+      </div>
+
+      <div class="hero-content" aria-hidden="true">
         <img id="heroIcon" alt="weather icon" src="" />
         <div class="hero-info">
           <div id="heroCity" class="hero-city"></div>
