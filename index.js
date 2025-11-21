@@ -1,5 +1,4 @@
-import 'dotenv/config';
-const apiKey = process.env.apiKey;
+import { API_KEY as apiKey } from './config.js';
 
 const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("cityInput");
