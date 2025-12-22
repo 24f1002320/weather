@@ -1,9 +1,9 @@
-import { API_KEY as apiKey } from './config.js';
+let apiKey = null;
 
 const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("cityInput");
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", async () => {
   const city = cityInput.value.trim();
 
   if (!city) {
@@ -11,16 +11,45 @@ searchBtn.addEventListener("click", () => {
     return;
   }
 
-  fetchWeather(city);
+  await fetchWeather(city);
 });
 
 cityInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") searchBtn.click();
 });
 
-function fetchWeather(city) {
+async function ensureApiKey() {
+  if (apiKey) return apiKey;
+
+  // try dynamic import of config.js (may be missing from remote if gitignored)
+  try {
+    const mod = await import('./config.js');
+    apiKey = mod.API_KEY;
+    return apiKey;
+  } catch (err) {
+    // fallback to stored key in localStorage
+    const stored = localStorage.getItem('OWM_API_KEY');
+    if (stored) {
+      apiKey = stored;
+      return apiKey;
+    }
+
+    // prompt user to paste key at runtime (safe alternative to committing key)
+    const input = prompt('OpenWeatherMap API key not found. Paste your API key (will be saved to this browser only):');
+    if (input) {
+      apiKey = input.trim();
+      try { localStorage.setItem('OWM_API_KEY', apiKey); } catch (e) {}
+      return apiKey;
+    }
+
+    return null;
+  }
+}
+
+async function fetchWeather(city) {
+  await ensureApiKey();
   if (!apiKey || apiKey.startsWith("sk-")) {
-    alert("Please set a valid OpenWeatherMap API key in `index.js` (replace the `apiKey` value).");
+    alert("Please set a valid OpenWeatherMap API key (in config.js or paste when prompted).\nSee: https://openweathermap.org/");
     return;
   }
 
